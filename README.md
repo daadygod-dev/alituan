@@ -1,9 +1,9 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1A1A1A,100:F4C430&height=220&section=header&text=DAADYGOD-DEV&fontSize=60&fontColor=F4C430&animation=fadeIn&fontAlignY=35&desc=Full-Stack%20Developer%20%7C%20Vertex%20Technology%20Services&descAlignY=55&descSize=18&descColor=E8E4D8" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:1A1A1A,100:F4C430&height=220&section=header&text=ALITUAN&fontSize=60&fontColor=F4C430&animation=fadeIn&fontAlignY=35&desc=Full-Stack%20Developer%20%7C%20Vertex%20Technology%20Services&descAlignY=55&descSize=18&descColor=E8E4D8" width="100%"/>
 
 <a href="https://git.io/typing-svg">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1000&color=F4C430&center=true&vCenter=true&width=600&lines=Building+products+for+East+Africa+%F0%9F%87%B7%F0%9F%87%BC;Full-Stack+Developer+%7C+Next.js+%2B+React+Native;Kigali%2C+Rwanda+-based+%F0%9F%93%8D;Turning+ideas+into+shipped+software" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Space+Mono&weight=700&size=24&pause=1000&color=F4C430&center=true&vCenter=true&width=600&lines=Building+products+for+East+Africa+%F0%9F%87%B7%F0%9F%87%BC;Full-Stack+Developer+%7C+Next.js+%2B+React+Native;Kigali%2C+Rwanda+-based+%F0%9F%93%8D;Turning+ideas+into+shipped+software" alt="Typing SVG" />
 </a>
 
 </div>
@@ -109,10 +109,10 @@ An AI tools directory built with Next.js and Firebase, with dynamic routes optim
 
 <div align="center">
 
-<img height="165" src="https://github-readme-stats.vercel.app/api?username=daadygod-dev&show_icons=true&theme=github_dark&bg_color=1A1A1A&title_color=F4C430&icon_color=F4C430&text_color=E8E4D8&border_color=F4C430&hide_border=true"/>
-<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=daadygod-dev&layout=compact&theme=github_dark&bg_color=1A1A1A&title_color=F4C430&text_color=E8E4D8&border_color=F4C430&hide_border=true"/>
+<img height="165" src="https://github-readme-stats.vercel.app/api?username=alituan&show_icons=true&theme=github_dark&bg_color=1A1A1A&title_color=F4C430&icon_color=F4C430&text_color=E8E4D8&border_color=F4C430&hide_border=true"/>
+<img height="165" src="https://github-readme-stats.vercel.app/api/top-langs/?username=alituan&layout=compact&theme=github_dark&bg_color=1A1A1A&title_color=F4C430&text_color=E8E4D8&border_color=F4C430&hide_border=true"/>
 
-<img src="https://github-readme-streak-stats.herokuapp.com/?user=daadygod-dev&theme=github-dark-blue&background=1A1A1A&stroke=F4C430&ring=F4C430&fire=F4C430&currStreakLabel=F4C430&hide_border=true" width="80%"/>
+<img src="https://github-readme-streak-stats.herokuapp.com/?user=alituan&theme=github-dark-blue&background=1A1A1A&stroke=F4C430&ring=F4C430&fire=F4C430&currStreakLabel=F4C430&hide_border=true" width="80%"/>
 
 </div>
 
