@@ -8,7 +8,7 @@ export default function Professional() {
             <h2 className="mb-1.5 dark:text-neutral-700 text-neutral-500">
                 WHAT I DO?
             </h2>
-            <p className="text-base font-thin">
+            <p className="mb-10 text-lg leading-relaxed dark:text-zinc-100 text-neutral-700 sm:text-lg font-thi">
                 I build websites and applications,
                  design the interfaces, and set up the data and systems behind them.
                   From the first idea to the live product, I handle the whole thing.

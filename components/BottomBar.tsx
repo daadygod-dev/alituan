@@ -303,7 +303,7 @@ export default function Bottombar() {
 
     return (
         <TooltipProvider>
-            <nav aria-label="quick actions" className="fixed bottom-10 left-1/2 -translate-x-1/2">
+            <nav aria-label="quick actions" className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
                 <div className={segmentedControlRootClassName}>
                     <Tooltip>
                         <TooltipTrigger

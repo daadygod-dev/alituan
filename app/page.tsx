@@ -8,6 +8,7 @@ import Bottombar from "@/components/BottomBar";
 import Professional from "@/components/Professional";
 import Education from "@/components/Education";
 import Projects from "@/components/Project";
+import StackShowcase from "@/components/Stacks";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <Professional />
         <Education />
         <Projects />
+        <StackShowcase />
       
       </main>
     </div>
