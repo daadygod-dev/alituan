@@ -196,12 +196,12 @@ export function AIAssistant() {
         onClick={() => setIsOpen((v) => !v)}
         size="icon"
         className={cn(
-          "fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full shadow-lg transition-transform hover:scale-105",
+          "fixed bottom-6 right-6 z-50 h-12 w-12 rounded-full shadow-lg transition-transform hover:scale-105 ",
           isOpen && "rotate-90"
         )}
         aria-label={isOpen ? "Close assistant" : "Open AI assistant"}
       >
-        {isOpen ? <X size={20} /> : <SiChatbot size={20} />}
+        {isOpen ? <X size={18} /> : <SiChatbot size={18} />}
       </Button>
 
       {isOpen && (

@@ -25,6 +25,8 @@ import {
     DialogClose
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { motion, AnimatePresence } from "motion/react";
+import { cn } from "@/lib/utils"
 
 type ActiveAction = "home" | "mail" | null
 type VoiceState = "idle" | "recording" | "recorded"
@@ -302,54 +304,85 @@ export default function Bottombar() {
     const itemClass = `${segmentedControlItemVariants({ state: "pressed" })} aspect-square !px-0`
 
     return (
-        <TooltipProvider>
-            <nav aria-label="quick actions" className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50">
-                <div className={segmentedControlRootClassName}>
-                    <Tooltip>
-                        <TooltipTrigger
-                            aria-label="Home"
-                            data-pressed={active === "home" || undefined}
-                            className={itemClass}
-                            onClick={() => setActive("home")}
-                        >
-                            <House className="size-5" />
-                        </TooltipTrigger>
-                        <TooltipPopup>Home</TooltipPopup>
-                    </Tooltip>
+      <TooltipProvider>
+      <nav aria-label="quick actions" className="fixed bottom-10 left-1/2 z-50 -translate-x-1/2">
+        <div className={segmentedControlRootClassName}>
+          <Tooltip>
+            <TooltipTrigger
+              aria-label="Home"
+              data-pressed={active === "home" || undefined}
+              className={cn(itemClass, "relative")}
+              onClick={() => setActive("home")}
+            >
+              {active === "home" && (
+                <motion.span
+                  layoutId="nav-active-pill"
+                  className="absolute inset-0 rounded-[inherit] bg-neutral-700"
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
+              <House className="relative z-10 size-5 transition-transform active:scale-90" />
+            </TooltipTrigger>
+            <TooltipPopup>Home</TooltipPopup>
+          </Tooltip>
 
-                    <VoiceMessageDialog />
+          <VoiceMessageDialog />
 
-                    <Tooltip>
-                        <TooltipTrigger
-                            aria-label="Open email"
-                            data-pressed={active === "mail" || undefined}
-                            className={itemClass}
-                            onClick={() => setActive("mail")}
-                        >
-                            <Mail className="size-5" />
-                        </TooltipTrigger>
-                        <TooltipPopup>Open email</TooltipPopup>
-                    </Tooltip>
+          <Tooltip>
+            <TooltipTrigger
+              aria-label="Open email"
+              data-pressed={active === "mail" || undefined}
+              className={cn(itemClass, "relative")}
+              onClick={() => setActive("mail")}
+            >
+              {active === "mail" && (
+                <motion.span
+                  layoutId="nav-active-pill"
+                  className="absolute inset-0 rounded-[inherit] bg-neutral-700"
+                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                />
+              )}
+              <Mail className="relative z-10 size-5 transition-transform active:scale-90" />
+            </TooltipTrigger>
+            <TooltipPopup>Open email</TooltipPopup>
+          </Tooltip>
 
-                    <Tooltip>
-                        <TooltipTrigger
-                            aria-label="Toggle theme"
-                            className={itemClass}
-                            onClick={() =>
-                                setTheme(resolvedTheme === "dark" ? "light" : "dark")
-                            }
-                        >
-                            {mounted && resolvedTheme === "dark" ? (
-                                 <Sun className="size-5 text-yellow-500" />
-                               
-                            ) : (
-                                 <Moon className="size-5 text-yellow-500" />
-                            )}
-                        </TooltipTrigger>
-                        <TooltipPopup>Toggle theme</TooltipPopup>
-                    </Tooltip>
-                </div>
-            </nav>
-        </TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              aria-label="Toggle theme"
+              className={cn(itemClass, "relative overflow-hidden")}
+              onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {mounted && resolvedTheme === "dark" ? (
+                  <motion.span
+                    key="sun"
+                    initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex"
+                  >
+                    <Sun className="size-5 text-yellow-500" />
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="moon"
+                    initial={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                    animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                    exit={{ rotate: -90, opacity: 0, scale: 0.5 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex"
+                  >
+                    <Moon className="size-5 text-yellow-500" />
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </TooltipTrigger>
+            <TooltipPopup>Toggle theme</TooltipPopup>
+          </Tooltip>
+        </div>
+      </nav>
+    </TooltipProvider>
     )
 }

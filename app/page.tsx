@@ -18,11 +18,10 @@ export default function Home() {
     <div className="flex flex-col flex-1 items-center justify-center bg-white dark:bg-neutral-900 font-inter">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-start py-16 px-8 text-foreground border-none relative">
 
-        <div>
-          <div className="flex flex-col items-center sm:items-start">
+        <div className="w-full">
+          <div className="flex w-full flex-col items-center sm:items-start">
             <ProfilePcture />
           </div>
-
         </div>
         <Summary />
         <SocialLinks />

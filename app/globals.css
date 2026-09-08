@@ -236,3 +236,45 @@
     @apply font-sans;
   }
 }
+
+
+
+/* Text size scales every rem-based size app-wide */
+html {
+  font-size: var(--a11y-scale, 100%);
+}
+
+/* High contrast: push text/background contrast up */
+html.a11y-high-contrast {
+  filter: contrast(1.12) brightness(1.03);
+}
+html.a11y-high-contrast body {
+  --tw-text-opacity: 1;
+}
+
+/* Dyslexia-friendly font: swap the stack + loosen spacing/line-height.
+   For a real dyslexia font, self-host OpenDyslexic and set it first
+   in this stack instead of relying on the fallback below. */
+html.a11y-dyslexia-font body {
+  font-family: "Comic Sans MS", "Comic Sans", "OpenDyslexic", ui-sans-serif,
+    system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  line-height: 1.7;
+  word-spacing: 0.08em;
+}
+
+/* Lo-fi mode: desaturate + soften */
+html.a11y-lofi body {
+  filter: grayscale(0.6) sepia(0.15) contrast(0.95);
+}
+
+@keyframes a11y-fall {
+  0% {
+    transform: translateY(-10px) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}

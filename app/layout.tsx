@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AIAssistant } from "@/components/ai-assistant";
+import { AccessibilityProvider } from "@/context/AccessibilityContext";
 
 // ─────────────────────────────────────────────────────────────────────
 // FILL THESE IN BEFORE PUBLISHING. These feed both the metadata below
@@ -71,7 +72,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
   },
-   verification: {
+  verification: {
     google: "aD97XXUY-Uw1v1VNhNc3OnrX1IfU1aWUm5O4_82gRlA",
   },
   twitter: {
@@ -120,11 +121,11 @@ const personJsonLd = {
 };
 
 export default function RootLayout({
-    children,
+  children,
 }: Readonly<{ children: React.ReactNode }>) {
-    return (
-        <html lang="en" suppressHydrationWarning
-       
+  return (
+    <html lang="en" suppressHydrationWarning
+
       className={cn(
         "h-full",
         "antialiased",
@@ -133,40 +134,43 @@ export default function RootLayout({
         playfairDisplayHeading.variable,
         geistMono.variable
       )}
-        >
-            <head>
-                {/*
+    >
+      <head>
+        {/*
                   Rendered once, site-wide. dangerouslySetInnerHTML is
                   safe here specifically because these three objects are
                   built entirely from constants defined above in this
                   file — no user input, no request-time data, so there's
                   no injection surface.
                 */}
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-                />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-                />
-                <script
-                    type="application/ld+json"
-                    dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
-                />
-            </head>
-            <body className="font-inter">
-                <ThemeProvider
-                    attribute="class"
-                    defaultTheme="system"
-                    enableSystem
-                    disableTransitionOnChange
-                >
-                    {children}
-                    
-                </ThemeProvider>
-                <AIAssistant />
-            </body>
-        </html>
-    )
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
+      </head>
+      <body className="font-inter">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <AccessibilityProvider>
+            {children}
+          </AccessibilityProvider>
+
+
+        </ThemeProvider>
+        <AIAssistant />
+      </body>
+    </html>
+  )
 }
