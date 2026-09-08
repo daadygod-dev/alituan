@@ -47,7 +47,7 @@ export default function Education() {
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col gap-0.5">
-                        <p className="text-lg leading-relaxed text-neutral-700 dark:text-zinc-100">
+                        <p className="text-base leading-relaxed text-neutral-700 dark:text-zinc-100 sm:text-lg">
                             Karongi College
                         </p>
                         <span className="text-neutral-600 dark:text-neutral-400 text-sm">
@@ -68,7 +68,7 @@ export default function Education() {
                         </AvatarFallback>
                     </Avatar>
                     <div className="flex flex-col gap-0.5">
-                        <p className="text-lg leading-relaxed text-neutral-700 dark:text-zinc-100">
+                        <p className="text-base leading-relaxed text-neutral-700 dark:text-zinc-100 sm:text-lg">
                             Lycee de Muhura
                         </p>
                         <span className="text-neutral-600 dark:text-neutral-400 text-sm">

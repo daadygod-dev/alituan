@@ -65,7 +65,7 @@ export default function Projects() {
                             </AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col gap-0.5">
-                            <p className="text-lg leading-relaxed text-neutral-700 dark:text-zinc-100">
+                            <p className="text-base leading-relaxed text-neutral-700 dark:text-zinc-100 sm:text-lg">
                                 {project.name}
                             </p>
                             <span className="text-neutral-600 dark:text-neutral-400 text-sm">
@@ -93,8 +93,8 @@ export default function Projects() {
                                 className="flex items-center gap-1.5 text-neutral-400 dark:text-neutral-600 text-sm cursor-default select-none"
                                 aria-label={`${project.name} is in development, not yet live`}
                             >
-                                <Clock size={14} />
-                                In development
+                                <Clock size={14} className="text-yellow-700" />
+                                Under development
                             </span>
                         )}
                     </div>

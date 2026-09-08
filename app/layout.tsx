@@ -3,7 +3,7 @@ import { Geist_Mono, Funnel_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
-
+import { AIAssistant } from "@/components/ai-assistant";
 
 const playfairDisplayHeading = Playfair_Display({
   subsets: ["latin"],
@@ -50,6 +50,7 @@ export default function RootLayout({
                     {children}
                     
                 </ThemeProvider>
+                <AIAssistant />
             </body>
         </html>
     )

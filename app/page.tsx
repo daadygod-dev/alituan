@@ -12,13 +12,17 @@ import StackShowcase from "@/components/Stacks";
 import LatestNotes from "@/components/LatestNotes";
 import Footer from "@/components/Footer";
 
+
 export default function Home() {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-white dark:bg-neutral-900 font-inter">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center  py-16 px-8  text-foreground sm:items-start border-none relative ">
-        
+      <main className="flex flex-1 w-full max-w-3xl flex-col items-start py-16 px-8 text-foreground border-none relative">
+
         <div>
-          <ProfilePcture />
+          <div className="flex flex-col items-center sm:items-start">
+            <ProfilePcture />
+          </div>
+
         </div>
         <Summary />
         <SocialLinks />
@@ -29,7 +33,7 @@ export default function Home() {
         <StackShowcase />
         <LatestNotes />
         <Footer />
-      
+
       </main>
     </div>
   );

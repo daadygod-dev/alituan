@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
-import { notes } from "@/lib/notes-data";
+import { notes } from "@/lib/notes-data-seo";
 
 // How many rows show before "Load more" is needed.
 const PAGE_SIZE = 4;

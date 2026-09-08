@@ -7,9 +7,9 @@ import { FaLinkedin } from "react-icons/fa6";
 
 // TODO: replace with your real profile URLs.
 const socials = [
-  { name: "X", href: "https://x.com/yourhandle", icon: SiX },
-  { name: "LinkedIn", href: "https://linkedin.com/in/yourhandle", icon: FaLinkedin },
-  { name: "GitHub", href: "https://github.com/alituan", icon: SiGithub },
+  { name: "X", href: "https://x.com/GoDaddy35729", icon: SiX },
+  { name: "LinkedIn", href: "https://linkedin.com/in/umuhoza-samuel", icon: FaLinkedin },
+  { name: "GitHub", href: "https://github.com/daadygod-dev", icon: SiGithub },
 ];
 
 export default function Footer() {

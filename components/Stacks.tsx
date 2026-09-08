@@ -96,7 +96,7 @@ export default function StackShowcase() {
         <p className="mb-4 text-xs font-medium tracking-[0.2em] text-zinc-500 dark:text-zinc-500">
           STACK
         </p>
-        <h2 className="mb-10 text-lg leading-relaxed text-zinc-900 dark:text-zinc-100 sm:text-lg">
+        <h2 className=" mb-8 text-base leading-relaxed text-neutral-700 dark:text-zinc-100 sm:text-lg">
           The tools and apps I work in every day. Design, code, and the AI
           that connects it.
         </h2>
