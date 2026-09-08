@@ -3,7 +3,7 @@ import { notes } from "@/lib/notes-data-seo";
 
 // Replace with your real deployed domain — same placeholder as in the
 // blog page component, must match exactly (see note there).
-const SITE_URL = "https://YOUR-DOMAIN.com";
+const SITE_URL = "https://alituan.me";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const postEntries: MetadataRoute.Sitemap = notes.map((note) => ({
