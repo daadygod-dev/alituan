@@ -1,59 +1,105 @@
 import Link from "next/link"
-import { ArrowUpRight } from "lucide-react"
+import { ArrowUpRight, Clock } from "lucide-react"
 import { Avatar, AvatarFallback } from "./ui/avatar"
+
+// Every project here is real — no fabricated/placeholder companies.
+// `href: null` means genuinely not deployed yet: renders a disabled
+// "In development" badge instead of a fake or dead link. The moment a
+// project actually goes live, flip its `href` to the real URL and it
+// automatically becomes a clickable "Visit site" row — no other changes
+// needed.
+type Project = {
+    initials: string
+    name: string
+    description: string
+    href: string | null // null = not live yet
+}
+
+const projects: Project[] = [
+    {
+        initials: "AI",
+        name: "AI ToolsHQ",
+        description: "Directory of 500+ AI tools with hands-on reviews and comparisons.",
+        href: "https://aitoolshq.space",
+    },
+    {
+        initials: "FS",
+        name: "FinSave AI",
+        description: "Bank and mobile-money coaching for MSMEs in Rwanda.",
+        href: "https://finsave.aitoolshq.space",
+    },
+    {
+        initials: "IH",
+        name: "Ihuriro",
+        description: "Rwanda-first negotiation marketplace (formerly Murandasi).",
+        href: null,
+    },
+    {
+        initials: "SW",
+        name: "ShiftWise",
+        description: "Shift-worker scheduling and pay-tracking utility app.",
+        href: null,
+    },
+]
 
 export default function Projects() {
     return (
-        <div className="w-full flex flex-col gap-2 py-2 my-3">
-            <h2 className="mb-1.5 dark:text-neutral-700 text-neutral-600">
+        <div className="w-full flex flex-col gap-2 py-6 my-3">
+            <h2 className="mb-4 text-xs font-medium tracking-[0.2em] text-neutral-500 dark:text-neutral-500">
                 MY WORKS
             </h2>
 
-            <div className="flex flex-row items-center justify-between gap-7 py-2 w-full border-b border-neutral-700">
-                <div className="flex items-center gap-1.5">
-                    <Avatar className="h-10 w-10 border dark:border-zinc-800 border-neutral-300 bg-zinc-900 transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:border-zinc-700 group-hover:shadow-lg group-focus-visible:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-zinc-500">
-                        <AvatarFallback>AI</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col gap-0.5">
-                        <p  className="text-lg leading-relaxed dark:text-zinc-100 text-neutral-700 sm:text-lg font-thi">AI ToolsHQ</p>
-                        <span className="text-neutral-600 text-sm">
-                            Ai Tools directory for multiworking Tasks
-                        </span>
+            {projects.map((project, i) => (
+                <div
+                    key={project.name}
+                    className={`flex flex-row items-center justify-between gap-7 py-3 w-full ${
+                        i !== projects.length - 1
+                            ? "border-b border-neutral-200 dark:border-neutral-700"
+                            : ""
+                    }`}
+                >
+                    <div className="flex items-center gap-3">
+                        <Avatar className="h-14 w-14 border border-neutral-300 dark:border-zinc-800 bg-neutral-100 dark:bg-zinc-900">
+                            <AvatarFallback className="bg-white dark:bg-transparent font-medium text-neutral-700 dark:text-neutral-200">
+                                {project.initials}
+                            </AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-0.5">
+                            <p className="text-lg leading-relaxed text-neutral-700 dark:text-zinc-100">
+                                {project.name}
+                            </p>
+                            <span className="text-neutral-600 dark:text-neutral-400 text-sm">
+                                {project.description}
+                            </span>
+                        </div>
+                    </div>
+                    <div className="text-right shrink-0">
+                        {project.href ? (
+                            <Link
+                                href={project.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-1 text-neutral-500 dark:text-neutral-400 hover:text-neutral-800 dark:hover:text-neutral-200 transition-colors text-sm"
+                            >
+                                Visit site
+                                <ArrowUpRight size={16} />
+                            </Link>
+                        ) : (
+                            // Deliberately not a <Link> — nothing to click,
+                            // no href to fake. A styled, disabled badge
+                            // instead, so it can't be mistaken for a live
+                            // deploy or a dead 404 link.
+                            <span
+                                className="flex items-center gap-1.5 text-neutral-400 dark:text-neutral-600 text-sm cursor-default select-none"
+                                aria-label={`${project.name} is in development, not yet live`}
+                            >
+                                <Clock size={14} />
+                                In development
+                            </span>
+                        )}
                     </div>
                 </div>
-                <div className="text-right shrink-0">
-                    <Link
-                        href="https://aitoolshq.space"
-                        className="flex items-center gap-0.5 text-neutral-500"
-                    >
-                        VISIT Site
-                        <ArrowUpRight size={18} />
-                    </Link>
-                </div>
-            </div>
-
-            <div className="flex flex-row items-center justify-between gap-7 py-2 w-full">
-                <div className="flex items-center gap-1.5">
-                    <Avatar className="h-10 w-10 border dark:border-zinc-800 border-neutral-300 bg-zinc-900 transition-all duration-200 ease-out group-hover:-translate-y-1 group-hover:border-zinc-700 group-hover:shadow-lg group-focus-visible:-translate-y-1 group-focus-visible:ring-2 group-focus-visible:ring-zinc-500">
-                        <AvatarFallback>PJ</AvatarFallback>
-                    </Avatar>
-                    <div className="flex flex-col gap-0.5">
-                        <p className="text-lg leading-relaxed dark:text-zinc-100 text-neutral-700 sm:text-lg font-thi">Project Name</p>
-                        <span className="text-neutral-600 text-sm">
-                            Short description
-                        </span>
-                    </div>
-                </div>
-                <div className="text-right shrink-0">
-                    <Link
-                        href="https://example.com"
-                        className="flex items-center gap-0.5 text-neutral-500"
-                    >
-                        VISIT Site
-                        <ArrowUpRight size={18} />
-                    </Link>
-                </div>
-            </div>
+            ))}
         </div>
     )
 }

@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
+
 const playfairDisplayHeading = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-heading",
@@ -47,6 +48,7 @@ export default function RootLayout({
                     disableTransitionOnChange
                 >
                     {children}
+                    
                 </ThemeProvider>
             </body>
         </html>
