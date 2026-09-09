@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useTheme } from "next-themes"
-import { House, Mail, Mic, Moon, Play, Pause, Square, Sun } from "lucide-react"
+import { House, Mail, Mic, Moon, Play, Pause, Square, Sun, Loader2 } from "lucide-react"
 import {
     segmentedControlItemVariants,
     segmentedControlRootClassName,
@@ -24,12 +24,25 @@ import {
     DialogFooter,
     DialogClose
 } from "@/components/ui/dialog"
+import {
+    Drawer,
+    DrawerTrigger,
+    DrawerPopup,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerDescription,
+    DrawerPanel,
+    DrawerFooter,
+    DrawerClose,
+} from "@/components/ui/drawer"
 import { Button } from "@/components/ui/button"
+import { useIsMobile } from "@/hooks/use-media-query"
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils"
 
 type ActiveAction = "home" | "mail" | null
 type VoiceState = "idle" | "recording" | "recorded"
+type ContactStatus = "idle" | "sending" | "sent" | "error"
 
 function formatTime(seconds: number) {
     const m = Math.floor(seconds / 60)
@@ -171,7 +184,7 @@ function VoiceMessageDialog() {
 
             <DialogPopup>
                 <DialogHeader>
-                    <DialogTitle>Send a voice message</DialogTitle>
+                    <DialogTitle className={"text-neutral-200"}>Send a voice message</DialogTitle>
                     <DialogDescription>
                         Record a message and I&apos;ll get back to you as soon as possible.
                     </DialogDescription>
@@ -256,7 +269,7 @@ function VoiceMessageDialog() {
                 <DialogFooter variant="bare">
                     {voiceState === "idle" && (
                         <>
-                            <Button onClick={startRecording} className="gap-1.5">
+                            <Button onClick={startRecording} className="gap-1.5 border-none" variant={"default"}>
                                 <span className="size-2 rounded-full bg-red-500" />
                                 Record Message
                             </Button>
@@ -288,6 +301,253 @@ function VoiceMessageDialog() {
                             </DialogClose>
                         </>
                     )}
+                </DialogFooter>
+            </DialogPopup>
+        </Dialog>
+    )
+}
+
+/**
+ * Contact form content shared between the desktop Dialog and mobile
+ * Drawer — same fields, same submit logic, so behavior can't drift
+ * between the two surfaces. Only the wrapping chrome (DialogPanel vs
+ * DrawerPanel) differs, handled by the two call sites below.
+ */
+function ContactFormFields({
+    name,
+    email,
+    message,
+    onNameChange,
+    onEmailChange,
+    onMessageChange,
+    status,
+}: {
+    name: string
+    email: string
+    message: string
+    onNameChange: (v: string) => void
+    onEmailChange: (v: string) => void
+    onMessageChange: (v: string) => void
+    status: ContactStatus
+}) {
+    const disabled = status === "sending" || status === "sent"
+
+    return (
+        <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1.5">
+                <label htmlFor="contact-name" className="text-sm  text-neutral-500">
+                    Name
+                </label>
+                <input
+                    id="contact-name"
+                    type="text"
+                    placeholder="Your name"
+                    value={name}
+                    disabled={disabled}
+                    onChange={(e) => onNameChange(e.target.value)}
+                    className="rounded-md border border-zinc-800 text-neutral-200 dark:bg-background bg-zinc-800 px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-64"
+                />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label htmlFor="contact-email" className="text-sm  text-neutral-500">
+                    Email address
+                </label>
+                <input
+                    id="contact-email"
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    disabled={disabled}
+                    onChange={(e) => onEmailChange(e.target.value)}
+                    className="rounded-md border border-zinc-800 text-neutral-200 dark:bg-background bg-zinc-800 px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-64"
+                />
+            </div>
+
+            <div className="flex flex-col gap-1.5">
+                <label htmlFor="contact-message" className="text-sm  text-neutral-500">
+                    Message
+                </label>
+                <textarea
+                    id="contact-message"
+                    placeholder="What's on your mind?"
+                    value={message}
+                    disabled={disabled}
+                    onChange={(e) => onMessageChange(e.target.value)}
+                    rows={3}
+                    className="resize-none rounded-md border-zinc-800 text-neutral-200 dark:bg-background bg-zinc-800 px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:opacity-64"
+                />
+            </div>
+
+            {status === "error" && (
+                <p className="text-destructive-foreground text-sm">
+                    Something went wrong sending your message. Please try again.
+                </p>
+            )}
+            {status === "sent" && (
+                <p className="text-sm text-muted-foreground">
+                    Message sent — thanks, I&apos;ll get back to you soon.
+                </p>
+            )}
+        </div>
+    )
+}
+
+function MailContactDialog({
+    active,
+    onActiveChange,
+}: {
+    active: boolean
+    onActiveChange: (active: boolean) => void
+}) {
+    const isMobile = useIsMobile()
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [message, setMessage] = useState("")
+    const [status, setStatus] = useState<ContactStatus>("idle")
+
+    const canSubmit =
+        name.trim().length > 0 &&
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) &&
+        message.trim().length > 0 &&
+        status !== "sending"
+
+    function resetForm() {
+        setName("")
+        setEmail("")
+        setMessage("")
+        setStatus("idle")
+    }
+
+    async function handleSubmit() {
+        if (!canSubmit) return
+        setStatus("sending")
+
+        try {
+            const res = await fetch("/api/contact", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, message }),
+            })
+
+            if (!res.ok) {
+                setStatus("error")
+                return
+            }
+
+            setStatus("sent")
+            // Brief pause so the "Message sent" confirmation is actually
+            // visible before the dialog/drawer closes, rather than
+            // vanishing instantly on success.
+            setTimeout(() => {
+                onActiveChange(false)
+                resetForm()
+            }, 1200)
+        } catch (err) {
+            console.error("Failed to send contact message:", err)
+            setStatus("error")
+        }
+    }
+
+    function handleOpenChange(next: boolean) {
+        onActiveChange(next)
+        if (!next) resetForm()
+    }
+
+    const trigger = (
+        <TooltipProvider>
+            <Tooltip>
+                <TooltipTrigger
+                    aria-label="Open email"
+                    data-pressed={active || undefined}
+                    render={
+                        isMobile ? <DrawerTrigger /> : <DialogTrigger />
+                    }
+                    className={cn(
+                        `${segmentedControlItemVariants({ state: "pressed" })} aspect-square !px-0`,
+                        "relative",
+                    )}
+                >
+                    {active && (
+                        <motion.span
+                            layoutId="nav-active-pill"
+                            className="absolute inset-0 rounded-[inherit] bg-neutral-700"
+                            transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                        />
+                    )}
+                    <Mail className="relative z-10 size-5 transition-transform active:scale-90" />
+                </TooltipTrigger>
+                <TooltipPopup>Open email</TooltipPopup>
+            </Tooltip>
+        </TooltipProvider>
+    )
+
+    const footerButtons = (
+        <Button onClick={handleSubmit} disabled={!canSubmit} className="gap-1.5">
+            {status === "sending" && <Loader2 className="size-3.5 animate-spin" />}
+            {status === "sending" ? "Sending..." : "Send Message"}
+        </Button>
+    )
+
+    if (isMobile) {
+        return (
+            <Drawer open={active} onOpenChange={handleOpenChange}>
+                {trigger}
+                <DrawerPopup showBar>
+                    <DrawerHeader>
+                        <DrawerTitle>Get in touch</DrawerTitle>
+                        <DrawerDescription>
+                            Send a message and I&apos;ll get back to you as soon as possible.
+                        </DrawerDescription>
+                    </DrawerHeader>
+                    <DrawerPanel>
+                        <ContactFormFields
+                            name={name}
+                            email={email}
+                            message={message}
+                            onNameChange={setName}
+                            onEmailChange={setEmail}
+                            onMessageChange={setMessage}
+                            status={status}
+                        />
+                    </DrawerPanel>
+                    <DrawerFooter variant="bare">
+                        {footerButtons}
+                        <DrawerClose render={<Button variant="outline" />}>
+                            Cancel
+                        </DrawerClose>
+                    </DrawerFooter>
+                </DrawerPopup>
+            </Drawer>
+        )
+    }
+
+    return (
+        <Dialog open={active} onOpenChange={handleOpenChange}>
+            {trigger}
+            <DialogPopup>
+                <DialogHeader>
+                    <DialogTitle className={"text-neutral-200"}>Get in touch</DialogTitle>
+                    <DialogDescription>
+                        Send a message and I&apos;ll get back to you as soon as possible.
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogPanel>
+                    <ContactFormFields
+                        name={name}
+                        email={email}
+                        message={message}
+                        onNameChange={setName}
+                        onEmailChange={setEmail}
+                        onMessageChange={setMessage}
+                        status={status}
+                    />
+                </DialogPanel>
+                <DialogFooter variant="bare">
+                    {footerButtons}
+                    <DialogClose render={<Button variant="outline" />}>
+                        Cancel
+                    </DialogClose>
                 </DialogFooter>
             </DialogPopup>
         </Dialog>
@@ -328,24 +588,10 @@ export default function Bottombar() {
 
           <VoiceMessageDialog />
 
-          <Tooltip>
-            <TooltipTrigger
-              aria-label="Open email"
-              data-pressed={active === "mail" || undefined}
-              className={cn(itemClass, "relative")}
-              onClick={() => setActive("mail")}
-            >
-              {active === "mail" && (
-                <motion.span
-                  layoutId="nav-active-pill"
-                  className="absolute inset-0 rounded-[inherit] bg-neutral-700"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
-                />
-              )}
-              <Mail className="relative z-10 size-5 transition-transform active:scale-90" />
-            </TooltipTrigger>
-            <TooltipPopup>Open email</TooltipPopup>
-          </Tooltip>
+          <MailContactDialog
+            active={active === "mail"}
+            onActiveChange={(isActive) => setActive(isActive ? "mail" : "home")}
+          />
 
           <Tooltip>
             <TooltipTrigger

@@ -126,7 +126,7 @@ export default function ProfilePicture() {
                         onClick={() => setPanelOpen((v) => !v)}
                         aria-label="Open display settings"
                         aria-expanded={panelOpen}
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-800/80 text-zinc-200 outline-none transition-colors hover:bg-zinc-700 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        className="flex h-10 w-10 items-center justify-center rounded-full dark:bg-zinc-800/80 bg-neutral-200 dark:text-zinc-200 text-neutral-700 outline-none transition-colors dark:hover:bg-zinc-700 hover:bg-neutral-200 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 cursor-pointer"
                     >
                         <RiEqualizer2Line size={18} />
                     </button>
@@ -138,13 +138,13 @@ export default function ProfilePicture() {
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.96, y: -6 }}
                                 transition={{ duration: 0.15, ease: "easeOut" }}
-                                className="absolute right-0 top-12 z-50 w-64 origin-top-right rounded-2xl border border-zinc-800 bg-zinc-900 p-4 shadow-xl"
+                                className="absolute right-0 top-12 z-50 w-64 origin-top-right rounded-2xl border dark:border-zinc-800 border-neutral-300 dark:bg-zinc-900 bg-neutral-100 p-4 shadow-[0_0_25px_rgba(0,0,0,0.2)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)]"
                             >
                                 <p className="mb-2 text-xs font-medium tracking-wide text-zinc-500">
                                     READABILITY &amp; FUN
                                 </p>
 
-                                <PanelRow icon={<Contrast size={16} />} label="Contrast">
+                                <PanelRow icon={<Contrast size={16} className="dark:text-zinc-300 text-zinc-800" />} label="Contrast" >
                                     <div className="flex items-center rounded-full bg-zinc-800 p-0.5">
                                         <button
                                             type="button"
@@ -165,7 +165,7 @@ export default function ProfilePicture() {
                                     </div>
                                 </PanelRow>
 
-                                <PanelRow icon={<CaseSensitive size={16} />} label="Dyslexia Font">
+                                <PanelRow icon={<CaseSensitive size={16} className="dark:text-zinc-300 text-zinc-800" />} label="Dyslexia Font">
                                     <Switch
                                         checked={dyslexiaFont}
                                         onCheckedChange={setDyslexiaFont}
@@ -173,8 +173,8 @@ export default function ProfilePicture() {
                                     />
                                 </PanelRow>
 
-                                <PanelRow icon={<Type size={16} />} label="Text Size">
-                                    <div className="flex items-center gap-2 text-xs text-zinc-300">
+                                <PanelRow icon={<Type size={16}  className="dark:text-zinc-300 text-zinc-800" />} label="Text Size">
+                                    <div className="flex items-center gap-2 text-xs dark:text-zinc-300 text-zinc-800">
                                         <button
                                             type="button"
                                             onClick={() => setTextSize(textSize - 10)}
@@ -193,11 +193,11 @@ export default function ProfilePicture() {
                                     </div>
                                 </PanelRow>
 
-                                <p className="mb-1 mt-3 text-xs font-medium tracking-wide text-zinc-500">
+                                <p className="mb-1 mt-3 text-xs font-medium tracking-wide dark:text-zinc-300 text-zinc-800">
                                     EXTRAS
                                 </p>
 
-                                <PanelRow icon={<Mountain size={16} />} label="Lo-fi Mode">
+                                <PanelRow icon={<Mountain size={16} className="dark:text-zinc-300 text-zinc-800" />} label="Lo-fi Mode">
                                     <Switch
                                         checked={lofiMode}
                                         onCheckedChange={setLofiMode}
@@ -205,7 +205,7 @@ export default function ProfilePicture() {
                                     />
                                 </PanelRow>
 
-                                <PanelRow icon={<Wand2 size={16} />} label="Cursor Trail">
+                                <PanelRow icon={<Wand2 size={16} className="dark:text-zinc-300 text-zinc-800" />} label="Cursor Trail">
                                     <Switch
                                         checked={cursorTrail}
                                         onCheckedChange={setCursorTrail}
@@ -213,7 +213,7 @@ export default function ProfilePicture() {
                                     />
                                 </PanelRow>
 
-                                <PanelRow icon={<PartyPopper size={16} />} label="Celebrate">
+                                <PanelRow icon={<PartyPopper size={16} className="dark:text-zinc-300 text-zinc-800" />} label="Celebrate">
                                     <button
                                         type="button"
                                         onClick={celebrate}

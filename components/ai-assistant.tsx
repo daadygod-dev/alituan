@@ -3,7 +3,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { SiChatbot } from "react-icons/si";
-import { X, Send, Paperclip, Square } from "lucide-react";
+import { X, Send, Paperclip, Square, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -207,10 +207,11 @@ export function AIAssistant() {
       {isOpen && (
         <div
           className={cn(
-            "fixed bottom-20 sm:bottom-18 right-6 z-50 flex h-[35rem] w-[24rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl",
+            "fixed bottom-20 sm:bottom-18 right-6 z-50 flex h-[40rem] w-[24rem] flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl",
             "sm:h-[38rem] sm:w-[28rem]",
             "dark:border-neutral-800 dark:bg-neutral-900",
-            "animate-in fade-in slide-in-from-bottom-4 duration-200"
+            "animate-in fade-in slide-in-from-bottom-4 duration-200",
+            "shadow-[0_0_25px_rgba(0,0,0,0.2)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)]"
           )}
         >
           <div className="flex items-center gap-2 shadow-sm  px-4 py-3 dark:border-neutral-800 h-15">
@@ -225,7 +226,7 @@ export function AIAssistant() {
               message.role === "assistant" ? (
                 <div
                   key={message.id}
-                  className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-neutral-100 px-3.5 py-2 text-sm text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100"
+                  className="max-w-[85%] whitespace-pre-wrap rounded-2xl rounded-bl-sm bg-neutral-200 px-3.5 py-2 text-sm text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100"
                 >
                   {message.content}
                   {isStreaming && streamingId === message.id && (
@@ -248,7 +249,7 @@ export function AIAssistant() {
             )}
           </div>
 
-          <div className="border-t border-neutral-200 p-3 dark:border-neutral-800">
+          <div className="border-none p-3 dark:border-neutral-800">
             {attachedFile && (
               <div className="mb-2 flex w-fit items-center gap-2 rounded-full bg-neutral-100 px-3 py-1 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300">
                 <Paperclip size={12} />
@@ -268,7 +269,7 @@ export function AIAssistant() {
               <button
                 type="button"
                 onClick={handleAttachClick}
-                className="shrink-0 rounded-full p-1.5 text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-100"
+                className="shrink-0 rounded-full p-1.5 text-neutral-500 transition-colors hover:bg-neutral-200 hover:text-neutral-800 dark:hover:bg-neutral-700 dark:hover:text-neutral-100 cursor-pointer"
                 aria-label="Attach file"
               >
                 <Paperclip size={16} />
@@ -298,10 +299,11 @@ export function AIAssistant() {
                   size="icon"
                   onClick={handleSend}
                   disabled={!input.trim() && !attachedFile}
-                  className="h-8 w-8 shrink-0 rounded-full"
+                  className="h-8 w-8 shrink-0 rounded-full disabled:bg-neutral-400 dark:disabled:bg-neutral-600"
                   aria-label="Send message"
                 >
-                  <Send size={14} />
+                 
+                  <ArrowUpRight size={14} />
                 </Button>
               )}
             </div>

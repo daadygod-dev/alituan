@@ -12,7 +12,7 @@ export const segmentedControlItemSizeClassNames: Record<
 };
 
 export const segmentedControlRootClassName =
-  "relative z-0 flex w-fit items-center justify-center gap-2.5 rounded-full bg-white shadow-lg dark:bg-neutral-800 p-3";
+  "relative z-0 flex w-fit items-center justify-center gap-2.5 rounded-full bg-white border dark:border-zinc-800 border-neutral-300 shadow-[0_0_25px_rgba(0,0,0,0.3)] dark:shadow-[0_0_30px_rgba(0,0,0,0.5)] dark:bg-neutral-800 p-3";
 
 export const segmentedControlItemLayoutClassName =
   "gap-1.5 [&_svg:not([class*='opacity-'])]:opacity-80 [&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:-mx-0.5 [&_svg]:shrink-0";
